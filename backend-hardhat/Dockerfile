@@ -18,18 +18,7 @@ RUN npm install -g hardhat && npm install
 # Copy the current directory contents into the container at /app
 COPY . .
 
-# # Set environment variables .env file
-# https://dashboard.alchemy.com/
-ENV SEPOLIA_ALCHEMY_RPC_URL=${SEPOLIA_ALCHEMY_RPC_URL}
 
-# Note -> AlwaysUseDummyAccount|KeepKeysSecure
-ENV METAMASK_PRIVATE_KEY=${METAMASK_PRIVATE_KEY}
-
-# https://etherscan.io/apis
-ENV ETHERSCAN_API_KEY=${ETHERSCAN_API_KEY} 
-
-# https://coinmarketcap.com/api/
-ENV COINMARKETCAP_API_KEY=${COINMARKETCAP_API_KEY}
 
 RUN echo "COINMARKETCAP_API_KEY=${COINMARKETCAP_API_KEY}"
 
