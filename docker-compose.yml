@@ -1,6 +1,6 @@
 services:
   frontend:
-    container_name: frontend-vite-cont 
+    container_name: frontend-vite-cont
     extra_hosts:
       - host.docker.internal:host-gateway
     build:
@@ -10,15 +10,13 @@ services:
       - 5173:5173
   backend:
     container_name: backend-hardhat-cont
+    # env_file:
+    #   - path: ./backend-hardhat/.env
+    #     required: true # default
     extra_hosts:
       - host.docker.internal:host-gateway
     build:
       context: ./backend-hardhat
       dockerfile: Dockerfile
-    environment:
-      - SEPOLIA_ALCHEMY_RPC_URL=${SEPOLIA_ALCHEMY_RPC_URL}
-      - METAMASK_PRIVATE_KEY=${METAMASK_PRIVATE_KEY}  
-      - ETHERSCAN_API_KEY=${ETHERSCAN_API_KEY}  
-      - COINMARKETCAP_API_KEY=${COINMARKETCAP_API_KEY}        
     ports:
       - 8545:8545
