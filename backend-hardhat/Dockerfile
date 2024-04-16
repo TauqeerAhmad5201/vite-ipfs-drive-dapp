@@ -9,8 +9,6 @@ COPY package*.json ./
 
 RUN apk add --update --no-cache python3 build-base gcc && ln -sf /usr/bin/python3 /usr/bin/python
 
-RUN echo ${Data}
-
 RUN npm install punycode.js
 
 # Install Hardhat globally and install dependencies
@@ -18,18 +16,6 @@ RUN npm install -g hardhat && npm install
 
 # Copy the current directory contents into the container at /app
 COPY . .
-
-# https://dashboard.alchemy.com/
-ENV SEPOLIA_ALCHEMY_RPC_URL=${SEPOLIA_ALCHEMY_RPC_URL}
-
-# Note -> AlwaysUseDummyAccount|KeepKeysSecure
-ENV METAMASK_PRIVATE_KEY=${METAMASK_PRIVATE_KEY}
-
-# https://etherscan.io/apis
-ENV ETHERSCAN_API_KEY=${ETHERSCAN_API_KEY}
-
-# https://coinmarketcap.com/api/
-ENV COINMARKETCAP_API_KEY=${COINMARKETCAP_API_KEY}
 
 RUN npx hardhat compile
 

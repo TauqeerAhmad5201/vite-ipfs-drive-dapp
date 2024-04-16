@@ -1,18 +1,10 @@
 services:
-  frontend:
-    container_name: frontend-vite-cont
-    extra_hosts:
-      - host.docker.internal:host-gateway
-    build:
-      context: ./frontend-vite
-      dockerfile: Dockerfile
-    ports:
-      - 5173:5173
+#building backend
   backend:
     container_name: backend-hardhat-cont
-    # env_file:
-    #   - path: ./backend-hardhat/.env
-    #     required: true # default
+    env_file:
+      - path: ./backend-hardhat/.env
+        required: true # default
     extra_hosts:
       - host.docker.internal:host-gateway
     build:
@@ -20,3 +12,20 @@ services:
       dockerfile: Dockerfile
     ports:
       - 8545:8545
+    volumes:
+      - ./backend-hardhat/artifacts/contracts:/app
+
+# building frontend
+  frontend:
+    container_name: frontend-vite-cont
+    depends_on:
+      - backend
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    build:
+      context: ./frontend-vite
+      dockerfile: Dockerfile
+    ports:
+      - 5173:5173
+    volumes:
+       - ./backend-hardhat/artifacts/contracts:/app
