@@ -1,3 +1,6 @@
+volumes:
+  shared-volume:
+
 services:
 #building backend
   backend:
@@ -13,7 +16,7 @@ services:
     ports:
       - 8545:8545
     volumes:
-      - ./backend-hardhat/artifacts/contracts:/app
+    - shared-volume:/app/artifacts/contracts/IPFSDriveContract_Main.sol
 
 # building frontend
   frontend:
@@ -28,4 +31,4 @@ services:
     ports:
       - 5173:5173
     volumes:
-       - ./backend-hardhat/artifacts/contracts:/app
+       - shared-volume:/app/src/context-state
